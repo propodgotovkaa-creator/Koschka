@@ -56,7 +56,6 @@ body {
     z-index: 100;
 
     padding: 9px 17px;
-
     border-radius: 22px;
 
     background: rgba(255,255,255,0.9);
@@ -67,6 +66,54 @@ body {
     font-weight: 700;
 
     box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+/* =========================================
+   ВОПРОС
+========================================= */
+
+#questionText {
+    position: absolute;
+
+    left: 43%;
+    top: 27%;
+
+    transform:
+        translateX(-50%)
+        translateY(-10px);
+
+    padding: 13px 27px;
+
+    border-radius: 28px;
+
+    background: rgba(255,255,255,0.90);
+
+    color: #674629;
+
+    font-size: 27px;
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    z-index: 110;
+
+    opacity: 0;
+    pointer-events: none;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,0.12);
+
+    transition:
+        opacity 0.35s ease,
+        transform 0.35s ease;
+}
+
+#questionText.show {
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
 }
 
 /* =========================================
@@ -113,7 +160,8 @@ body {
 
     transform-origin: 25% 88%;
 
-    animation: tailWag 2.7s ease-in-out infinite;
+    animation:
+        tailWag 2.7s ease-in-out infinite;
 }
 
 @keyframes tailWag {
@@ -170,7 +218,8 @@ body {
 }
 
 #mouse.appear {
-    animation: mouseAppear 0.4s ease;
+    animation:
+        mouseAppear 0.4s ease;
 }
 
 @keyframes mouseAppear {
@@ -262,7 +311,8 @@ body {
 
     z-index: 3;
 
-    transition: opacity 0.22s ease;
+    transition:
+        opacity 0.22s ease;
 }
 
 .hiddenMouse img {
@@ -272,7 +322,8 @@ body {
 }
 
 .hat-slot.open .hat {
-    transform: translateY(-122px);
+    transform:
+        translateY(-122px);
 }
 
 .hat-slot.correct .hiddenMouse {
@@ -280,7 +331,7 @@ body {
 }
 
 /* =========================================
-   ПОЗИЦИИ ШАПОК
+   ПОЗИЦИИ
 ========================================= */
 
 .position-0 {
@@ -369,11 +420,6 @@ body {
     width: 51%;
     height: 100%;
 
-    /*
-       Пока делаем шторки без отдельных
-       картинок — мягкая ткань через CSS.
-    */
-
     background:
         repeating-linear-gradient(
             90deg,
@@ -384,42 +430,44 @@ body {
         );
 
     box-shadow:
-        inset 0 0 40px rgba(90,25,20,0.25);
+        inset 0 0 40px
+        rgba(90,25,20,0.25);
 
     transition:
-        transform 0.72s cubic-bezier(.65,0,.35,1);
+        transform 0.72s
+        cubic-bezier(.65,0,.35,1);
 }
-
-/* Левая половина */
 
 #curtainLeft {
     left: 0;
 
-    transform: translateX(-101%);
+    transform:
+        translateX(-101%);
 
     border-right:
-        5px solid rgba(120,40,35,0.18);
+        5px solid
+        rgba(120,40,35,0.18);
 }
-
-/* Правая половина */
 
 #curtainRight {
     right: 0;
 
-    transform: translateX(101%);
+    transform:
+        translateX(101%);
 
     border-left:
-        5px solid rgba(120,40,35,0.18);
+        5px solid
+        rgba(120,40,35,0.18);
 }
 
-/* Закрываем */
-
 #curtain.closed #curtainLeft {
-    transform: translateX(0);
+    transform:
+        translateX(0);
 }
 
 #curtain.closed #curtainRight {
-    transform: translateX(0);
+    transform:
+        translateX(0);
 }
 
 /* =========================================
@@ -428,6 +476,7 @@ body {
 
 #finishScreen {
     position: absolute;
+
     inset: 0;
 
     display: none;
@@ -436,7 +485,8 @@ body {
     justify-content: center;
     flex-direction: column;
 
-    background: rgba(255,248,232,0.94);
+    background:
+        rgba(255,248,232,0.94);
 
     z-index: 500;
 }
@@ -482,7 +532,8 @@ body {
     }
 
     .hat-slot.open .hat {
-        transform: translateY(-95px);
+        transform:
+            translateY(-95px);
     }
 
     .hiddenMouse {
@@ -497,6 +548,16 @@ body {
         left: 43%;
         top: 35%;
     }
+
+    #questionText {
+        left: 43%;
+        top: 27%;
+
+        font-size: 23px;
+
+        padding:
+            11px 22px;
+    }
 }
 
 </style>
@@ -506,9 +567,19 @@ body {
 
 <div id="game">
 
+    <!-- СЧЁТЧИК -->
+
     <div id="roundCounter">
         Раунд 1 / 2
     </div>
+
+
+    <!-- НОВАЯ НАДПИСЬ -->
+
+    <div id="questionText">
+        Где спряталась мышка?
+    </div>
+
 
     <!-- КОШКА -->
 
@@ -530,6 +601,7 @@ body {
 
     </div>
 
+
     <!-- МЫШКА -->
 
     <div id="mouse">
@@ -542,15 +614,18 @@ body {
 
     </div>
 
+
     <!-- ШАПКИ -->
 
     <div id="hatsArea"></div>
+
 
     <!-- КНОПКА -->
 
     <button id="nextButton">
         Играть дальше
     </button>
+
 
     <!-- ШТОРКИ -->
 
@@ -568,11 +643,14 @@ body {
 
     </div>
 
+
     <!-- ФИНАЛ -->
 
     <div id="finishScreen">
 
-        <h1>🎉 Отлично!</h1>
+        <h1>
+            🎉 Отлично!
+        </h1>
 
         <p>
             Первые два раунда пройдены!
@@ -581,6 +659,7 @@ body {
     </div>
 
 </div>
+
 
 <script>
 
@@ -637,6 +716,9 @@ const nextButton =
 
 const roundCounter =
     document.getElementById("roundCounter");
+
+const questionText =
+    document.getElementById("questionText");
 
 const finishScreen =
     document.getElementById("finishScreen");
@@ -893,7 +975,7 @@ async function shuffleHats() {
 
 
 /* =========================================
-   МЫШКА ПОЯВЛЯЕТСЯ НА ПОДУШКЕ
+   МЫШКА НА ПОДУШКЕ
 ========================================= */
 
 async function showMouseBeforeRound() {
@@ -928,19 +1010,13 @@ async function showMouseBeforeRound() {
     );
 
 
-    /*
-       Ещё примерно 1,1 секунды
-       просто сидит на подушке.
-       Итого видна около 1,5 сек.
-    */
-
     await wait(1100);
 
 }
 
 
 /* =========================================
-   ШТОРКА ЗАКРЫВАЕТСЯ
+   ЗАКРЫВАЕМ ШТОРКУ
 ========================================= */
 
 async function closeCurtain() {
@@ -950,17 +1026,13 @@ async function closeCurtain() {
     );
 
 
-    /*
-       Ждём полного закрытия.
-    */
-
     await wait(760);
 
 }
 
 
 /* =========================================
-   ШТОРКА ОТКРЫВАЕТСЯ
+   ОТКРЫВАЕМ ШТОРКУ
 ========================================= */
 
 async function openCurtain() {
@@ -970,18 +1042,13 @@ async function openCurtain() {
     );
 
 
-    /*
-       Ждём, пока половинки
-       полностью разойдутся.
-    */
-
     await wait(760);
 
 }
 
 
 /* =========================================
-   ПРЯЧЕМ МЫШКУ ЗА ШТОРКОЙ
+   ПРЯЧЕМ МЫШКУ
 ========================================= */
 
 function hideMouseBehindCurtain() {
@@ -1005,6 +1072,16 @@ async function startRound() {
     roundSolved = false;
 
 
+    /*
+       На всякий случай убираем
+       вопрос от прошлого раунда.
+    */
+
+    questionText
+        .classList
+        .remove("show");
+
+
     nextButton
         .classList
         .remove("show");
@@ -1022,11 +1099,6 @@ async function startRound() {
     );
 
 
-    /*
-       Каждый новый раунд
-       начинаем с исходного ряда.
-    */
-
     positionMap = [
         0,
         1,
@@ -1041,11 +1113,6 @@ async function startRound() {
         `Раунд ${currentRound + 1} / ${TOTAL_ROUNDS}`;
 
 
-    /*
-       Выбираем физическую шапку,
-       под которой находится мышка.
-    */
-
     mouseHatID =
         rounds[currentRound];
 
@@ -1058,47 +1125,71 @@ async function startRound() {
     await showMouseBeforeRound();
 
 
-    /* 2. Закрываем экран */
+    /* 2. Шторка закрывается */
 
     await closeCurtain();
 
 
-    /*
-       3. ТОЛЬКО когда экран полностью
-       закрыт — мышка исчезает.
-
-       Ребёнок не видит,
-       куда она пошла.
-    */
+    /* 3. За шторкой мышка исчезает */
 
     hideMouseBehindCurtain();
 
 
-    /*
-       Маленькая пауза за шторкой.
-    */
-
     await wait(300);
 
 
-    /* 4. Открываем экран */
+    /* 4. Шторка открывается */
 
     await openCurtain();
 
 
     /*
-       5. После открытия
-       начинается перемешивание.
+       5. ПОЯВЛЯЕТСЯ ВОПРОС
     */
 
-    await wait(250);
+    questionText
+        .classList
+        .add("show");
 
+
+    await wait(350);
+
+
+    /*
+       6. ШАПКИ ПЕРЕМЕШИВАЮТСЯ.
+
+       Всё это время вопрос
+       остаётся на экране.
+    */
 
     await shuffleHats();
 
 
     /*
-       6. Теперь можно выбирать.
+       7. Шапки остановились.
+
+       Ещё совсем небольшая пауза,
+       чтобы переход не был резким.
+    */
+
+    await wait(350);
+
+
+    /*
+       8. Убираем вопрос.
+    */
+
+    questionText
+        .classList
+        .remove("show");
+
+
+    await wait(250);
+
+
+    /*
+       9. Теперь ребёнок
+       может выбирать.
     */
 
     canChoose = true;
@@ -1136,10 +1227,6 @@ async function chooseHat(hat) {
             hat.dataset.id
         );
 
-
-    /*
-       Поднимаем выбранную шапку.
-    */
 
     hat.classList.add(
         "open"
