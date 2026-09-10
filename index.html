@@ -34,24 +34,27 @@ body {
     height: 100vh;
     overflow: hidden;
 
-    background-image: url("fon.png");
+    background-image: url("./fon.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-/* =====================================================
+
+/* ==============================
    СЧЁТЧИК
-===================================================== */
+============================== */
 
 #roundCounter {
     position: absolute;
+
     top: 22px;
     left: 25px;
 
     z-index: 100;
 
     padding: 9px 17px;
+
     border-radius: 22px;
 
     background: rgba(255,255,255,0.88);
@@ -64,9 +67,10 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
-/* =====================================================
+
+/* ==============================
    КОШКА
-===================================================== */
+============================== */
 
 #cat {
     position: absolute;
@@ -75,6 +79,7 @@ body {
     bottom: 9%;
 
     width: min(28vw, 420px);
+
     aspect-ratio: 1 / 1.35;
 
     z-index: 20;
@@ -133,9 +138,10 @@ body {
     }
 }
 
-/* =====================================================
+
+/* ==============================
    МЫШКА
-===================================================== */
+============================== */
 
 #mouse {
     position: absolute;
@@ -184,15 +190,17 @@ body {
     }
 }
 
-/* =====================================================
+
+/* ==============================
    ОБЛАСТЬ ШАПОК
-===================================================== */
+============================== */
 
 #hatsArea {
     position: absolute;
 
     left: 7%;
     right: 30%;
+
     bottom: 7%;
 
     height: 330px;
@@ -200,9 +208,10 @@ body {
     z-index: 30;
 }
 
-/* =====================================================
+
+/* ==============================
    ШАПКА
-===================================================== */
+============================== */
 
 .hat-slot {
     position: absolute;
@@ -239,12 +248,15 @@ body {
     width: 100%;
     height: auto;
 
+    object-fit: contain;
+
     pointer-events: none;
 }
 
-/* =====================================================
+
+/* ==============================
    МЫШКА ПОД ШАПКОЙ
-===================================================== */
+============================== */
 
 .hiddenMouse {
     position: absolute;
@@ -265,6 +277,7 @@ body {
 
 .hiddenMouse img {
     display: block;
+
     width: 100%;
     height: auto;
 }
@@ -277,9 +290,10 @@ body {
     opacity: 1;
 }
 
-/* =====================================================
-   ТРИ ПОЗИЦИИ
-===================================================== */
+
+/* ==============================
+   ПОЗИЦИИ
+============================== */
 
 .position-0 {
     left: 2%;
@@ -293,9 +307,10 @@ body {
     left: 68%;
 }
 
-/* =====================================================
+
+/* ==============================
    КНОПКА
-===================================================== */
+============================== */
 
 #nextButton {
     position: absolute;
@@ -326,7 +341,8 @@ body {
 
     z-index: 120;
 
-    box-shadow: 0 6px 18px rgba(0,0,0,0.16);
+    box-shadow:
+        0 6px 18px rgba(0,0,0,0.16);
 
     transition:
         opacity 0.3s ease,
@@ -335,6 +351,7 @@ body {
 
 #nextButton.show {
     opacity: 1;
+
     pointer-events: auto;
 
     transform:
@@ -342,12 +359,14 @@ body {
         scale(1);
 }
 
-/* =====================================================
-   ЭКРАН ПОСЛЕ ТЕСТА
-===================================================== */
+
+/* ==============================
+   ФИНАЛ
+============================== */
 
 #finishScreen {
     position: absolute;
+
     inset: 0;
 
     display: none;
@@ -367,6 +386,7 @@ body {
 
 #finishScreen h1 {
     margin-bottom: 15px;
+
     font-size: 52px;
 }
 
@@ -374,14 +394,16 @@ body {
     font-size: 28px;
 }
 
-/* =====================================================
-   iPAD / НЕБОЛЬШИЕ ЭКРАНЫ
-===================================================== */
+
+/* ==============================
+   iPAD
+============================== */
 
 @media (max-width: 950px) {
 
     #cat {
         width: min(31vw, 340px);
+
         right: 1%;
         bottom: 8%;
     }
@@ -389,6 +411,7 @@ body {
     #hatsArea {
         left: 3%;
         right: 28%;
+
         height: 280px;
     }
 
@@ -413,9 +436,13 @@ body {
 </style>
 </head>
 
+
 <body>
 
 <div id="game">
+
+
+    <!-- СЧЁТЧИК -->
 
     <div id="roundCounter">
         Раунд 1 / 2
@@ -428,14 +455,14 @@ body {
 
         <img
             id="catTail"
-            src="cat-tail.png"
+            src="./cat-tail.png"
             alt=""
             draggable="false"
         >
 
         <img
             id="catBody"
-            src="cat-body.png"
+            src="./cat-body.png"
             alt=""
             draggable="false"
         >
@@ -443,12 +470,12 @@ body {
     </div>
 
 
-    <!-- МЫШКА ДО ТОГО, КАК ОНА СПРЯЧЕТСЯ -->
+    <!-- МЫШКА -->
 
     <div id="mouse">
 
         <img
-            src="mouse.png"
+            src="./mouse.png"
             alt=""
             draggable="false"
         >
@@ -471,7 +498,7 @@ body {
             <div class="hiddenMouse">
 
                 <img
-                    src="mouse.png"
+                    src="./mouse.png"
                     alt=""
                     draggable="false"
                 >
@@ -481,8 +508,8 @@ body {
             <div class="hat">
 
                 <img
-                    src="hats/hat-1-chess.png"
-                    alt=""
+                    src="./hats/hat-1-shess.png"
+                    alt="Шапка с шахматами"
                     draggable="false"
                 >
 
@@ -501,7 +528,7 @@ body {
             <div class="hiddenMouse">
 
                 <img
-                    src="mouse.png"
+                    src="./mouse.png"
                     alt=""
                     draggable="false"
                 >
@@ -511,8 +538,8 @@ body {
             <div class="hat">
 
                 <img
-                    src="hats/hat-1-car.png"
-                    alt=""
+                    src="./hats/hat-1-car.png"
+                    alt="Шапка с машиной"
                     draggable="false"
                 >
 
@@ -531,7 +558,7 @@ body {
             <div class="hiddenMouse">
 
                 <img
-                    src="mouse.png"
+                    src="./mouse.png"
                     alt=""
                     draggable="false"
                 >
@@ -541,8 +568,8 @@ body {
             <div class="hat">
 
                 <img
-                    src="hats/hat-1-shower.png"
-                    alt=""
+                    src="./hats/hat-1-schower.png"
+                    alt="Шапка с душем"
                     draggable="false"
                 >
 
@@ -550,13 +577,18 @@ body {
 
         </div>
 
+
     </div>
 
+
+    <!-- КНОПКА -->
 
     <button id="nextButton">
         Играть дальше
     </button>
 
+
+    <!-- ФИНАЛ -->
 
     <div id="finishScreen">
 
@@ -573,9 +605,9 @@ body {
 
 <script>
 
-/* =====================================================
-   ТЕСТИРУЕМ ТОЛЬКО 2 РАУНДА
-===================================================== */
+/* ==============================
+   НАСТРОЙКИ
+============================== */
 
 const TOTAL_ROUNDS = 2;
 
@@ -586,10 +618,10 @@ const TOTAL_ROUNDS = 2;
     2 = душ
 
     Раунд 1:
-    мышка прячется под шапку с шахматами.
+    мышка → шахматы
 
     Раунд 2:
-    мышка прячется под шапку с машиной.
+    мышка → машина
 */
 
 const rounds = [
@@ -598,9 +630,9 @@ const rounds = [
 ];
 
 
-/* =====================================================
+/* ==============================
    ЭЛЕМЕНТЫ
-===================================================== */
+============================== */
 
 const game =
     document.getElementById("game");
@@ -624,9 +656,9 @@ const finishScreen =
     document.getElementById("finishScreen");
 
 
-/* =====================================================
+/* ==============================
    СОСТОЯНИЕ
-===================================================== */
+============================== */
 
 let currentRound = 0;
 
@@ -639,9 +671,9 @@ let roundSolved = false;
 let positionMap = [0,1,2];
 
 
-/* =====================================================
+/* ==============================
    ПАУЗА
-===================================================== */
+============================== */
 
 function wait(ms) {
 
@@ -651,35 +683,39 @@ function wait(ms) {
 }
 
 
-/* =====================================================
-   ОБНОВЛЕНИЕ ПОЗИЦИЙ
-===================================================== */
+/* ==============================
+   ПОЗИЦИИ
+============================== */
 
 function updateHatPositions() {
 
-    hats.forEach((hat, hatID) => {
+    hats.forEach(
+        (hat, hatID) => {
 
-        hat.classList.remove(
-            "position-0",
-            "position-1",
-            "position-2"
-        );
+            hat.classList.remove(
+                "position-0",
+                "position-1",
+                "position-2"
+            );
 
-        hat.classList.add(
-            "position-" + positionMap[hatID]
-        );
+            hat.classList.add(
+                "position-" +
+                positionMap[hatID]
+            );
 
-    });
+        }
+    );
 }
 
 
-/* =====================================================
-   ПЕРЕМЕШИВАНИЕ
-===================================================== */
+/* ==============================
+   ПЕРЕМЕШИВАНИЕ МАССИВА
+============================== */
 
 function shuffleArray(array) {
 
-    const copy = [...array];
+    const copy =
+        [...array];
 
     for (
         let i = copy.length - 1;
@@ -689,7 +725,8 @@ function shuffleArray(array) {
 
         const j =
             Math.floor(
-                Math.random() * (i + 1)
+                Math.random() *
+                (i + 1)
             );
 
         [
@@ -707,13 +744,11 @@ function shuffleArray(array) {
 }
 
 
-async function shuffleHats() {
+/* ==============================
+   ПЕРЕМЕШИВАНИЕ ШАПОК
+============================== */
 
-    /*
-       Делаем несколько последовательных
-       перестановок, чтобы ребёнок видел
-       само движение шапок.
-    */
+async function shuffleHats() {
 
     const shuffleSteps = 8;
 
@@ -728,14 +763,17 @@ async function shuffleHats() {
         do {
 
             newPositions =
-                shuffleArray([0,1,2]);
+                shuffleArray(
+                    [0,1,2]
+                );
 
         }
         while (
 
             newPositions.every(
                 (value,index) =>
-                    value === positionMap[index]
+                    value ===
+                    positionMap[index]
             )
 
         );
@@ -750,9 +788,9 @@ async function shuffleHats() {
 }
 
 
-/* =====================================================
-   МЫШКА ПОЯВЛЯЕТСЯ СЛЕВА
-===================================================== */
+/* ==============================
+   ПОЯВЛЕНИЕ МЫШКИ
+============================== */
 
 async function showMouseBeforeRound() {
 
@@ -764,11 +802,8 @@ async function showMouseBeforeRound() {
 
 
     /*
-       Ставим её поближе к шапкам.
-
-       Она находится слева
-       и немного выше них,
-       а не в одном ряду.
+       Мышка слева от шапок
+       и немного выше.
     */
 
     mouse.style.left =
@@ -777,6 +812,7 @@ async function showMouseBeforeRound() {
             gameRect.left +
             12
         ) + "px";
+
 
     mouse.style.top =
         (
@@ -791,27 +827,26 @@ async function showMouseBeforeRound() {
         "appear"
     );
 
+
     await wait(400);
+
 
     mouse.classList.remove(
         "appear"
     );
 
 
-    /*
-       В сумме мышку хорошо видно
-       примерно 1,5 секунды.
-    */
-
     await wait(1100);
 }
 
 
-/* =====================================================
-   МЫШКА ИДЁТ К НУЖНОЙ ШАПКЕ
-===================================================== */
+/* ==============================
+   МЫШКА ПРЯЧЕТСЯ
+============================== */
 
-async function mouseJumpIntoHat(hatID) {
+async function mouseJumpIntoHat(
+    hatID
+) {
 
     const targetHat =
         hats[hatID];
@@ -840,37 +875,34 @@ async function mouseJumpIntoHat(hatID) {
         ) + "px";
 
 
-    /*
-       Движение к шапке.
-    */
-
     await wait(720);
 
 
-    /*
-       Исчезает как будто
-       спряталась под ней.
-    */
+    mouse.style.opacity =
+        "0";
 
-    mouse.style.opacity = "0";
 
     await wait(250);
+
 
     mouse.classList.remove(
         "visible"
     );
 
-    mouse.style.opacity = "";
+
+    mouse.style.opacity =
+        "";
 }
 
 
-/* =====================================================
-   ЗАПУСК РАУНДА
-===================================================== */
+/* ==============================
+   НАЧАЛО РАУНДА
+============================== */
 
 async function startRound() {
 
     canChoose = false;
+
     roundSolved = false;
 
 
@@ -879,26 +911,29 @@ async function startRound() {
         .remove("show");
 
 
-    hats.forEach(hat => {
+    hats.forEach(
+        hat => {
 
-        hat.classList.remove(
-            "open",
-            "correct"
-        );
+            hat.classList.remove(
+                "open",
+                "correct"
+            );
 
-    });
+        }
+    );
 
 
     /*
-       В начале раунда возвращаем
-       картинки на исходные места:
-
-       шахматы — слева
-       машина — центр
-       душ — справа
+       Возвращаем шапки
+       на исходные позиции.
     */
 
-    positionMap = [0,1,2];
+    positionMap = [
+        0,
+        1,
+        2
+    ];
+
 
     updateHatPositions();
 
@@ -906,12 +941,6 @@ async function startRound() {
     roundCounter.textContent =
         `Раунд ${currentRound + 1} / ${TOTAL_ROUNDS}`;
 
-
-    /*
-       Выбираем физическую шапку,
-       под которой мышка останется
-       после перемешивания.
-    */
 
     mouseHatID =
         rounds[currentRound];
@@ -928,12 +957,6 @@ async function startRound() {
     );
 
 
-    /*
-       Маленькая пауза —
-       ребёнок успевает понять,
-       что мышка спряталась.
-    */
-
     await wait(500);
 
 
@@ -944,29 +967,37 @@ async function startRound() {
 }
 
 
-/* =====================================================
-   НАЖАТИЕ НА ШАПКУ
-===================================================== */
+/* ==============================
+   ВЫБОР ШАПКИ
+============================== */
 
 async function chooseHat(hat) {
 
-    if (!canChoose) return;
+    if (!canChoose) {
+        return;
+    }
 
-    if (roundSolved) return;
+    if (roundSolved) {
+        return;
+    }
 
     if (
-        hat.classList.contains("open")
+        hat.classList.contains(
+            "open"
+        )
     ) {
         return;
     }
 
 
     const hatID =
-        Number(hat.dataset.id);
+        Number(
+            hat.dataset.id
+        );
 
 
     /*
-       Поднимаем выбранную шапку.
+       Поднимаем шапку.
     */
 
     hat.classList.add(
@@ -979,10 +1010,12 @@ async function chooseHat(hat) {
     */
 
     if (
-        hatID === mouseHatID
+        hatID ===
+        mouseHatID
     ) {
 
         roundSolved = true;
+
         canChoose = false;
 
 
@@ -1007,17 +1040,8 @@ async function chooseHat(hat) {
 
     else {
 
-        /*
-           Показываем пустое место.
-        */
-
         await wait(950);
 
-
-        /*
-           Опускаем шапку обратно,
-           и ребёнок может пробовать ещё.
-        */
 
         hat.classList.remove(
             "open"
@@ -1027,39 +1051,38 @@ async function chooseHat(hat) {
 }
 
 
-/* =====================================================
+/* ==============================
    КЛИКИ
-===================================================== */
+============================== */
 
-hats.forEach(hat => {
+hats.forEach(
+    hat => {
 
-    hat.addEventListener(
-        "click",
-        () => chooseHat(hat)
-    );
+        hat.addEventListener(
+            "click",
+            () =>
+                chooseHat(hat)
+        );
 
-});
+    }
+);
 
 
-/* =====================================================
+/* ==============================
    СЛЕДУЮЩИЙ РАУНД
-===================================================== */
+============================== */
 
 nextButton.addEventListener(
     "click",
     async () => {
 
-        if (!roundSolved) return;
+        if (!roundSolved) {
+            return;
+        }
 
 
         currentRound++;
 
-
-        /*
-           После второго раунда
-           пока показываем финальный
-           экран тестовой версии.
-        */
 
         if (
             currentRound >=
@@ -1080,9 +1103,9 @@ nextButton.addEventListener(
 );
 
 
-/* =====================================================
+/* ==============================
    СТАРТ
-===================================================== */
+============================== */
 
 startRound();
 
