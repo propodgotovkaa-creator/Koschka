@@ -29,7 +29,7 @@ body {
 }
 
 /* =========================================
-   ИГРА
+   ИГРОВОЕ ПОЛЕ
 ========================================= */
 
 #game {
@@ -45,7 +45,7 @@ body {
 }
 
 /* =========================================
-   РАУНД
+   СЧЁТЧИК
 ========================================= */
 
 #roundCounter {
@@ -75,8 +75,13 @@ body {
 #cat {
     position: absolute;
 
+    /*
+       Сдвинули кошку немного вверх,
+       чтобы она сидела НА подушке.
+    */
+
     right: 4%;
-    bottom: 9%;
+    bottom: 15%;
 
     width: min(28vw, 420px);
 
@@ -139,7 +144,7 @@ body {
 }
 
 /* =========================================
-   МЫШКА ДО ПРЯТАНИЯ
+   МЫШКА
 ========================================= */
 
 #mouse {
@@ -191,14 +196,18 @@ body {
 
 /* =========================================
    ОБЛАСТЬ ШАПОК
+
+   Подняли выше + сдвинули вправо
+   ближе к кошке.
 ========================================= */
 
 #hatsArea {
     position: absolute;
 
-    left: 7%;
-    right: 30%;
-    bottom: 7%;
+    left: 19%;
+    right: 23%;
+
+    bottom: 15%;
 
     height: 330px;
 
@@ -286,7 +295,7 @@ body {
     transform: translateY(-122px);
 }
 
-/* Показываем мышку только под правильной */
+/* Показываем мышку */
 
 .hat-slot.correct .hiddenMouse {
     opacity: 1;
@@ -309,14 +318,16 @@ body {
 }
 
 /* =========================================
-   КНОПКА
+   КНОПКА "ИГРАТЬ ДАЛЬШЕ"
+
+   Опустили ниже окна на обои.
 ========================================= */
 
 #nextButton {
     position: absolute;
 
     left: 50%;
-    top: 17%;
+    top: 34%;
 
     transform:
         translateX(-50%)
@@ -391,20 +402,34 @@ body {
 }
 
 /* =========================================
-   iPAD
+   iPAD / НЕБОЛЬШИЕ ЭКРАНЫ
 ========================================= */
 
 @media (max-width: 950px) {
 
     #cat {
         width: min(31vw, 340px);
+
         right: 1%;
-        bottom: 8%;
+
+        /*
+           Кошка выше.
+        */
+
+        bottom: 14%;
     }
 
     #hatsArea {
-        left: 3%;
-        right: 28%;
+
+        /*
+           Шапки правее и выше.
+        */
+
+        left: 14%;
+        right: 20%;
+
+        bottom: 14%;
+
         height: 280px;
     }
 
@@ -423,6 +448,10 @@ body {
 
     #mouse {
         width: 90px;
+    }
+
+    #nextButton {
+        top: 35%;
     }
 }
 
@@ -469,18 +498,17 @@ body {
 
     </div>
 
-    <!--
-        ВАЖНО:
-        шапок здесь больше нет вручную.
-
-        JavaScript сам создаст все 3.
-    -->
+    <!-- ШАПКИ СОЗДАЮТСЯ JS -->
 
     <div id="hatsArea"></div>
+
+    <!-- КНОПКА -->
 
     <button id="nextButton">
         Играть дальше
     </button>
+
+    <!-- ФИНАЛ -->
 
     <div id="finishScreen">
 
@@ -504,23 +532,23 @@ const TOTAL_ROUNDS = 2;
 
 
 /*
-   НАШИ ТРИ КРАСНЫЕ ШАПКИ.
-
-   0 = шахматы
-   1 = машина
-   2 = душ
+   0 — шахматы
+   1 — машина
+   2 — душ
 */
 
 const hatImages = [
+
     "hats/hat-red-chess-v2.png",
+
     "hats/hat-1-car.png",
+
     "hats/hat-red-shower-v3.png"
+
 ];
 
 
 /*
-   Где прячется мышка.
-
    Раунд 1 → шахматы
    Раунд 2 → машина
 */
@@ -555,7 +583,7 @@ const finishScreen =
 
 
 /* =========================================
-   СОЗДАЁМ ШАПКИ АВТОМАТИЧЕСКИ
+   СОЗДАЁМ ШАПКИ
 ========================================= */
 
 hatImages.forEach(
@@ -571,10 +599,7 @@ hatImages.forEach(
             index;
 
 
-        /*
-           Мышка, которая будет
-           находиться под шапкой.
-        */
+        /* Мышка под шапкой */
 
         const hiddenMouse =
             document.createElement("div");
@@ -598,9 +623,7 @@ hatImages.forEach(
         );
 
 
-        /*
-           Сама шапка.
-        */
+        /* Шапка */
 
         const hat =
             document.createElement("div");
@@ -612,11 +635,6 @@ hatImages.forEach(
         const hatImage =
             document.createElement("img");
 
-        /*
-           ВОТ ЗДЕСЬ JavaScript
-           назначает нужный файл.
-        */
-
         hatImage.src =
             imagePath;
 
@@ -625,23 +643,6 @@ hatImages.forEach(
 
         hatImage.draggable =
             false;
-
-
-        /*
-           Если вдруг какой-то файл
-           не загрузится, увидим его
-           точный путь в консоли.
-        */
-
-        hatImage.onerror =
-            function() {
-
-                console.error(
-                    "Не удалось загрузить:",
-                    imagePath
-                );
-
-            };
 
 
         hat.appendChild(
@@ -666,11 +667,6 @@ hatImages.forEach(
 );
 
 
-/*
-   Получаем созданные шапки
-   только ПОСЛЕ их создания.
-*/
-
 const hats =
     [
         ...document.querySelectorAll(
@@ -690,11 +686,6 @@ let mouseHatID = 0;
 let canChoose = false;
 
 let roundSolved = false;
-
-
-/*
-   Физическая шапка → позиция
-*/
 
 let positionMap = [
     0,
@@ -721,7 +712,7 @@ function wait(ms) {
 
 
 /* =========================================
-   ОБНОВЛЯЕМ ПОЗИЦИИ
+   ПОЗИЦИИ ШАПОК
 ========================================= */
 
 function updateHatPositions() {
@@ -736,13 +727,9 @@ function updateHatPositions() {
             );
 
 
-            const newPosition =
-                positionMap[hatID];
-
-
             hat.classList.add(
                 "position-" +
-                newPosition
+                positionMap[hatID]
             );
 
         }
@@ -752,7 +739,7 @@ function updateHatPositions() {
 
 
 /* =========================================
-   СЛУЧАЙНОЕ ПЕРЕМЕШИВАНИЕ
+   ПЕРЕМЕШИВАНИЕ МАССИВА
 ========================================= */
 
 function shuffleArray(array) {
@@ -762,11 +749,8 @@ function shuffleArray(array) {
 
 
     for (
-        let i =
-            copy.length - 1;
-
+        let i = copy.length - 1;
         i > 0;
-
         i--
     ) {
 
@@ -805,9 +789,7 @@ async function shuffleHats() {
 
     for (
         let i = 0;
-
         i < shuffleSteps;
-
         i++
     ) {
 
@@ -848,7 +830,7 @@ async function shuffleHats() {
 
 
 /* =========================================
-   ПОКАЗЫВАЕМ МЫШКУ
+   ПОЯВЛЕНИЕ МЫШКИ НА ПОДУШКЕ
 ========================================= */
 
 async function showMouseBeforeRound() {
@@ -857,28 +839,26 @@ async function showMouseBeforeRound() {
         game.getBoundingClientRect();
 
 
-    const hatsRect =
-        hatsArea.getBoundingClientRect();
-
-
     /*
-       Мышка находится слева
-       от шапок и немного выше.
+       МЫШКА НА ПОДУШКЕ.
+
+       По твоему скрину подушка находится
+       слева в нижней части комнаты.
+
+       Используем координаты относительно
+       всего игрового поля, чтобы положение
+       не зависело от шапок.
     */
 
     mouse.style.left =
         (
-            hatsRect.left -
-            gameRect.left +
-            12
+            gameRect.width * 0.14
         ) + "px";
 
 
     mouse.style.top =
         (
-            hatsRect.top -
-            gameRect.top -
-            30
+            gameRect.height * 0.61
         ) + "px";
 
 
@@ -897,8 +877,8 @@ async function showMouseBeforeRound() {
 
 
     /*
-       Остаётся видимой примерно
-       до 1,5 секунды.
+       Мышка остаётся на подушке,
+       чтобы ребёнок её увидел.
     */
 
     await wait(1100);
@@ -907,7 +887,7 @@ async function showMouseBeforeRound() {
 
 
 /* =========================================
-   МЫШКА ПРЯЧЕТСЯ
+   МЫШКА ПРЯЧЕТСЯ ПОД ШАПКУ
 ========================================= */
 
 async function mouseJumpIntoHat(
@@ -919,19 +899,12 @@ async function mouseJumpIntoHat(
 
 
     const hatRect =
-        targetHat
-        .getBoundingClientRect();
+        targetHat.getBoundingClientRect();
 
 
     const gameRect =
-        game
-        .getBoundingClientRect();
+        game.getBoundingClientRect();
 
-
-    /*
-       Летим к центру
-       нужной шапки.
-    */
 
     mouse.style.left =
         (
@@ -953,10 +926,6 @@ async function mouseJumpIntoHat(
     await wait(720);
 
 
-    /*
-       Исчезаем под шапкой.
-    */
-
     mouse.style.opacity =
         "0";
 
@@ -976,7 +945,7 @@ async function mouseJumpIntoHat(
 
 
 /* =========================================
-   НАЧИНАЕМ РАУНД
+   НАЧАЛО РАУНДА
 ========================================= */
 
 async function startRound() {
@@ -991,10 +960,6 @@ async function startRound() {
         .remove("show");
 
 
-    /*
-       Закрываем все шапки.
-    */
-
     hats.forEach(
         hat => {
 
@@ -1008,11 +973,7 @@ async function startRound() {
 
 
     /*
-       Возвращаем на старт:
-
-       шахматы — слева
-       машина — центр
-       душ — справа
+       Исходные позиции.
     */
 
     positionMap = [
@@ -1029,14 +990,6 @@ async function startRound() {
         `Раунд ${currentRound + 1} / ${TOTAL_ROUNDS}`;
 
 
-    /*
-       Запоминаем именно
-       ФИЗИЧЕСКУЮ шапку.
-
-       После перемешивания мышка
-       остаётся под ней.
-    */
-
     mouseHatID =
         rounds[currentRound];
 
@@ -1045,14 +998,15 @@ async function startRound() {
 
 
     /*
-       Показываем мышку.
+       Мышка появляется
+       НА ПОДУШКЕ.
     */
 
     await showMouseBeforeRound();
 
 
     /*
-       Она идёт под шапку.
+       Потом идёт к нужной шапке.
     */
 
     await mouseJumpIntoHat(
@@ -1060,23 +1014,15 @@ async function startRound() {
     );
 
 
-    /*
-       Маленькая пауза.
-    */
-
     await wait(500);
 
 
     /*
-       Перемешивание.
+       Шапки перемешиваются.
     */
 
     await shuffleHats();
 
-
-    /*
-       Теперь можно выбирать.
-    */
 
     canChoose = true;
 
@@ -1084,7 +1030,7 @@ async function startRound() {
 
 
 /* =========================================
-   ВЫБИРАЕМ ШАПКУ
+   ВЫБОР ШАПКИ
 ========================================= */
 
 async function chooseHat(hat) {
@@ -1114,18 +1060,12 @@ async function chooseHat(hat) {
         );
 
 
-    /*
-       Поднимаем выбранную.
-    */
-
     hat.classList.add(
         "open"
     );
 
 
-    /*
-       ПРАВИЛЬНО
-    */
+    /* ПРАВИЛЬНО */
 
     if (
         hatID ===
@@ -1152,23 +1092,12 @@ async function chooseHat(hat) {
     }
 
 
-    /*
-       НЕПРАВИЛЬНО
-    */
+    /* НЕПРАВИЛЬНО */
 
     else {
 
-        /*
-           Держим пустую шапку
-           открытой чуть меньше секунды.
-        */
-
         await wait(900);
 
-
-        /*
-           Закрываем обратно.
-        */
 
         hat.classList.remove(
             "open"
@@ -1180,7 +1109,7 @@ async function chooseHat(hat) {
 
 
 /* =========================================
-   НАЖАТИЯ
+   КЛИКИ
 ========================================= */
 
 hats.forEach(
@@ -1197,7 +1126,7 @@ hats.forEach(
 
 
 /* =========================================
-   ИГРАТЬ ДАЛЬШЕ
+   СЛЕДУЮЩИЙ РАУНД
 ========================================= */
 
 nextButton.addEventListener(
@@ -1211,11 +1140,6 @@ nextButton.addEventListener(
 
         currentRound++;
 
-
-        /*
-           Пока тест заканчивается
-           после второго раунда.
-        */
 
         if (
             currentRound >=
@@ -1238,7 +1162,7 @@ nextButton.addEventListener(
 
 
 /* =========================================
-   ЗАПУСК
+   СТАРТ
 ========================================= */
 
 startRound();
