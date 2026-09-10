@@ -7,10 +7,12 @@
 <title>Где мышка?</title>
 
 <style>
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+
     user-select: none;
     -webkit-user-select: none;
 }
@@ -27,10 +29,16 @@ body {
     background: #ddd;
 }
 
+/* =========================================
+   ИГРОВОЕ ПОЛЕ
+========================================= */
+
 #game {
     position: relative;
+
     width: 100vw;
     height: 100vh;
+
     overflow: hidden;
 
     background-image: url("fon.png");
@@ -39,23 +47,31 @@ body {
     background-repeat: no-repeat;
 }
 
-/* ВОПРОС */
+/* =========================================
+   ВОПРОС
+========================================= */
 
 #questionText {
     position: absolute;
-    left: 43%;
-    top: 27%;
 
-    transform: translateX(-50%) translateY(-10px);
+    left: 42%;
+    top: 28%;
+
+    transform:
+        translateX(-50%)
+        translateY(-10px);
 
     padding: 13px 27px;
+
     border-radius: 28px;
 
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.90);
+
     color: #674629;
 
-    font-size: 27px;
+    font-size: clamp(20px, 2vw, 27px);
     font-weight: 700;
+
     white-space: nowrap;
 
     z-index: 110;
@@ -63,7 +79,8 @@ body {
     opacity: 0;
     pointer-events: none;
 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+    box-shadow:
+        0 5px 15px rgba(0,0,0,0.12);
 
     transition:
         opacity 0.35s ease,
@@ -72,60 +89,96 @@ body {
 
 #questionText.show {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+
+    transform:
+        translateX(-50%)
+        translateY(0);
 }
 
-/* КОШКА */
+/* =========================================
+   КОШКА
+========================================= */
 
 #cat {
     position: absolute;
-    right: 4%;
-    bottom: 15%;
 
-    width: min(28vw, 420px);
+    right: 4%;
+    bottom: 13%;
+
+    width: min(27vw, 410px);
+
     aspect-ratio: 1 / 1.35;
 
     z-index: 20;
+
     pointer-events: none;
 }
 
 #catBody {
     position: absolute;
+
     width: 100%;
+    height: auto;
+
     left: 0;
     bottom: 0;
+
     z-index: 3;
 }
 
 #catTail {
     position: absolute;
+
     width: 47%;
+    height: auto;
+
     right: -7%;
     bottom: 7%;
 
     z-index: 2;
 
     transform-origin: 25% 88%;
-    animation: tailWag 2.7s ease-in-out infinite;
+
+    animation:
+        tailWag 2.7s ease-in-out infinite;
 }
 
 @keyframes tailWag {
-    0%   { transform: rotate(-7deg); }
-    25%  { transform: rotate(5deg); }
-    50%  { transform: rotate(10deg); }
-    75%  { transform: rotate(2deg); }
-    100% { transform: rotate(-7deg); }
+
+    0% {
+        transform: rotate(-7deg);
+    }
+
+    25% {
+        transform: rotate(5deg);
+    }
+
+    50% {
+        transform: rotate(10deg);
+    }
+
+    75% {
+        transform: rotate(2deg);
+    }
+
+    100% {
+        transform: rotate(-7deg);
+    }
 }
 
-/* МЫШКА НА ПОДУШКЕ */
+/* =========================================
+   МЫШКА
+========================================= */
 
 #mouse {
     position: absolute;
-    width: 105px;
+
+    width: clamp(72px, 8vw, 105px);
 
     z-index: 45;
 
     opacity: 0;
+
     pointer-events: none;
 
     transition:
@@ -135,7 +188,9 @@ body {
 
 #mouse img {
     display: block;
+
     width: 100%;
+    height: auto;
 }
 
 #mouse.visible {
@@ -143,43 +198,57 @@ body {
 }
 
 #mouse.appear {
-    animation: mouseAppear 0.4s ease;
+    animation:
+        mouseAppear 0.4s ease;
 }
 
 @keyframes mouseAppear {
-    0%   { transform: scale(0.65); }
-    65%  { transform: scale(1.08); }
-    100% { transform: scale(1); }
+
+    0% {
+        transform: scale(0.65);
+    }
+
+    65% {
+        transform: scale(1.08);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
-/* ШАПКИ */
+/* =========================================
+   ОБЛАСТЬ ШАПОК
+========================================= */
 
 #hatsArea {
     position: absolute;
 
-    left: 19%;
-    right: 23%;
-    bottom: 15%;
+    left: 50%;
+    bottom: 10%;
 
-    height: 330px;
+    width: min(64vw, 940px);
+    height: 255px;
+
+    transform: translateX(-50%);
 
     z-index: 30;
 }
 
+/* =========================================
+   ОДНА ШАПКА
+========================================= */
+
 .hat-slot {
     position: absolute;
 
-    width: 200px;
+    width: clamp(145px, 16vw, 205px);
     height: 245px;
 
     bottom: 0;
 
     cursor: pointer;
 }
-
-.position-0 { left: 2%; }
-.position-1 { left: 35%; }
-.position-2 { left: 68%; }
 
 .hat {
     position: absolute;
@@ -192,19 +261,42 @@ body {
     z-index: 5;
 
     transition:
-        transform 0.42s cubic-bezier(.3,.8,.3,1);
+        transform 0.42s
+        cubic-bezier(.3,.8,.3,1);
 }
 
 .hat-image {
     display: block;
+
     width: 100%;
     height: auto;
 
     object-fit: contain;
+
     pointer-events: none;
 }
 
-/* МЫШКА ПОД ШАПКОЙ */
+/* =========================================
+   ФИКСИРОВАННЫЕ ПОЗИЦИИ
+========================================= */
+
+.position-0 {
+    left: 6%;
+}
+
+.position-1 {
+    left: 50%;
+
+    transform: translateX(-50%);
+}
+
+.position-2 {
+    right: 6%;
+}
+
+/* =========================================
+   МЫШКА ПОД ШАПКОЙ
+========================================= */
 
 .hiddenMouse {
     position: absolute;
@@ -212,7 +304,7 @@ body {
     left: 50%;
     bottom: 18px;
 
-    width: 90px;
+    width: clamp(65px, 7vw, 90px);
 
     transform: translateX(-50%);
 
@@ -220,41 +312,56 @@ body {
 
     z-index: 3;
 
-    transition: opacity 0.22s ease;
+    transition:
+        opacity 0.22s ease;
 }
 
 .hiddenMouse img {
     display: block;
+
     width: 100%;
+    height: auto;
 }
 
 .hat-slot.open .hat {
-    transform: translateY(-122px);
+    transform:
+        translateY(-118px);
+}
+
+.position-1.open .hat {
+    transform:
+        translateY(-118px);
 }
 
 .hat-slot.correct .hiddenMouse {
     opacity: 1;
 }
 
-/* КНОПКА */
+/* =========================================
+   КНОПКА
+========================================= */
 
 #nextButton {
     position: absolute;
 
-    left: 43%;
-    top: 34%;
+    left: 41%;
+    top: 36%;
 
-    transform: translateX(-50%) scale(0.85);
+    transform:
+        translateX(-50%)
+        scale(0.85);
 
-    padding: 16px 30px;
+    padding:
+        15px 28px;
 
     border: none;
     border-radius: 32px;
 
     background: #72bb78;
+
     color: white;
 
-    font-size: 25px;
+    font-size: clamp(19px, 2vw, 25px);
     font-weight: 700;
 
     cursor: pointer;
@@ -264,7 +371,9 @@ body {
 
     z-index: 120;
 
-    box-shadow: 0 6px 18px rgba(0,0,0,0.16);
+    box-shadow:
+        0 6px 18px
+        rgba(0,0,0,0.16);
 
     transition:
         opacity 0.3s ease,
@@ -273,20 +382,27 @@ body {
 
 #nextButton.show {
     opacity: 1;
+
     pointer-events: auto;
 
-    transform: translateX(-50%) scale(1);
+    transform:
+        translateX(-50%)
+        scale(1);
 }
 
-/* ШТОРКИ */
+/* =========================================
+   ШТОРКИ
+========================================= */
 
 #curtain {
     position: absolute;
+
     inset: 0;
 
     z-index: 400;
 
     pointer-events: none;
+
     overflow: hidden;
 }
 
@@ -308,71 +424,93 @@ body {
         );
 
     box-shadow:
-        inset 0 0 40px rgba(90,25,20,0.25);
+        inset 0 0 40px
+        rgba(90,25,20,0.25);
 
     transition:
-        transform 0.72s cubic-bezier(.65,0,.35,1);
+        transform 0.72s
+        cubic-bezier(.65,0,.35,1);
 }
 
 #curtainLeft {
     left: 0;
-    transform: translateX(-101%);
+
+    transform:
+        translateX(-101%);
 }
 
 #curtainRight {
     right: 0;
-    transform: translateX(101%);
+
+    transform:
+        translateX(101%);
 }
 
 #curtain.closed #curtainLeft {
-    transform: translateX(0);
+    transform:
+        translateX(0);
 }
 
 #curtain.closed #curtainRight {
-    transform: translateX(0);
+    transform:
+        translateX(0);
 }
 
-/* ФИНАЛ */
+/* =========================================
+   ФИНАЛ
+========================================= */
 
 #finishScreen {
     position: absolute;
+
     inset: 0;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
-    background: rgba(80,55,40,0.28);
+    background:
+        rgba(80,55,40,0.28);
 
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter:
+        blur(3px);
+
+    -webkit-backdrop-filter:
+        blur(3px);
 
     z-index: 500;
 
     opacity: 0;
+
     pointer-events: none;
 
-    transition: opacity 0.4s ease;
+    transition:
+        opacity 0.4s ease;
 }
 
 #finishScreen.show {
     opacity: 1;
+
     pointer-events: auto;
 }
 
 .finishCard {
     width: min(620px, 80vw);
 
-    padding: 42px 50px;
+    padding:
+        42px 50px;
 
     text-align: center;
 
-    background: rgba(255,250,238,0.97);
+    background:
+        rgba(255,250,238,0.97);
 
     border-radius: 38px;
 
     box-shadow:
-        0 18px 50px rgba(70,45,30,0.28);
+        0 18px 50px
+        rgba(70,45,30,0.28);
 
     transform:
         translateY(40px)
@@ -381,7 +519,8 @@ body {
     opacity: 0;
 
     transition:
-        transform 0.5s cubic-bezier(.2,.9,.3,1.2),
+        transform 0.5s
+        cubic-bezier(.2,.9,.3,1.2),
         opacity 0.4s ease;
 }
 
@@ -395,6 +534,7 @@ body {
 
 .finishEmoji {
     font-size: 65px;
+
     margin-bottom: 12px;
 }
 
@@ -403,76 +543,72 @@ body {
 
     color: #674629;
 
-    font-size: 42px;
+    font-size:
+        clamp(30px, 4vw, 42px);
 }
 
 .finishCard p {
     color: #805d3f;
 
-    font-size: 30px;
+    font-size:
+        clamp(22px, 3vw, 30px);
+
     font-weight: 600;
 }
 
-/* iPAD */
+/* =========================================
+   ВЫСОКИЕ / УЗКИЕ ЭКРАНЫ
+========================================= */
 
-@media (max-width: 950px) {
+@media (max-aspect-ratio: 4/3) {
 
     #cat {
-        width: min(31vw, 340px);
+        width: min(30vw, 350px);
         right: 1%;
-        bottom: 14%;
+        bottom: 11%;
     }
 
     #hatsArea {
-        left: 14%;
-        right: 20%;
-        bottom: 14%;
-        height: 280px;
+        width: 78vw;
+        bottom: 9%;
     }
 
     .hat-slot {
-        width: 160px;
-        height: 205px;
-    }
-
-    .hat-slot.open .hat {
-        transform: translateY(-95px);
-    }
-
-    .hiddenMouse {
-        width: 74px;
-    }
-
-    #mouse {
-        width: 90px;
-    }
-
-    #nextButton {
-        left: 43%;
-        top: 35%;
+        width: clamp(130px, 21vw, 180px);
     }
 
     #questionText {
-        left: 43%;
+        left: 42%;
+        top: 26%;
+    }
+
+    #nextButton {
+        left: 41%;
+        top: 35%;
+    }
+}
+
+/* =========================================
+   ОЧЕНЬ ШИРОКИЕ ЭКРАНЫ
+========================================= */
+
+@media (min-aspect-ratio: 16/9) {
+
+    #hatsArea {
+        width: min(58vw, 900px);
+        bottom: 9%;
+    }
+
+    #cat {
+        bottom: 11%;
+    }
+
+    #questionText {
         top: 27%;
-
-        font-size: 23px;
-
-        padding: 11px 22px;
     }
 
-    .finishCard {
-        width: 78vw;
-
-        padding: 32px 30px;
-    }
-
-    .finishCard h1 {
-        font-size: 34px;
-    }
-
-    .finishCard p {
-        font-size: 25px;
+    #nextButton {
+        top: 35%;
     }
 }
 
@@ -486,6 +622,7 @@ body {
     <div id="questionText">
         Где спряталась мышка?
     </div>
+
 
     <div id="cat">
 
@@ -505,19 +642,25 @@ body {
 
     </div>
 
+
     <div id="mouse">
+
         <img
             src="mouse.png"
             alt=""
             draggable="false"
         >
+
     </div>
 
+
     <div id="hatsArea"></div>
+
 
     <button id="nextButton">
         Играть дальше
     </button>
+
 
     <div id="curtain">
 
@@ -532,6 +675,7 @@ body {
         </div>
 
     </div>
+
 
     <div id="finishScreen">
 
@@ -555,43 +699,39 @@ body {
 
 </div>
 
+
 <script>
 
-/* ================================
+/* =========================================
    КОМПЛЕКТЫ ШАПОК
-================================ */
+========================================= */
 
 const hatSets = [
 
-    /* 1–2 — красные */
     [
         "hats/hat-red-chess-v2.png",
         "hats/hat-1-car.png",
         "hats/hat-red-shower-v3.png"
     ],
 
-    /* 3–4 — зелёные */
     [
         "hats/cherry.png",
         "hats/puck.png",
         "hats/bear.png"
     ],
 
-    /* 5–6 — синие */
     [
         "hats/frog.png",
         "hats/tire.png",
         "hats/bag.png"
     ],
 
-    /* 7–8 — жёлтые */
     [
         "hats/coat.png",
         "hats/rooster.png",
         "hats/chocolate.png"
     ],
 
-    /* 9–10 — белые */
     [
         "hats/cone.png",
         "hats/baby.png",
@@ -603,97 +743,119 @@ const hatSets = [
 const TOTAL_ROUNDS = 10;
 
 
-/* ================================
+/* =========================================
    ЭЛЕМЕНТЫ
-================================ */
+========================================= */
 
 const game =
-    document.getElementById("game");
+    document.getElementById(
+        "game"
+    );
 
 const hatsArea =
-    document.getElementById("hatsArea");
+    document.getElementById(
+        "hatsArea"
+    );
 
 const mouse =
-    document.getElementById("mouse");
+    document.getElementById(
+        "mouse"
+    );
 
 const nextButton =
-    document.getElementById("nextButton");
+    document.getElementById(
+        "nextButton"
+    );
 
 const questionText =
-    document.getElementById("questionText");
+    document.getElementById(
+        "questionText"
+    );
 
 const finishScreen =
-    document.getElementById("finishScreen");
+    document.getElementById(
+        "finishScreen"
+    );
 
 const curtain =
-    document.getElementById("curtain");
+    document.getElementById(
+        "curtain"
+    );
 
 
-/* ================================
+/* =========================================
    СОСТОЯНИЕ
-================================ */
+========================================= */
 
 let currentRound = 0;
+
 let mouseHatID = 0;
+
 let canChoose = false;
+
 let roundSolved = false;
+
 let hats = [];
 
 
-/* ================================
+/* =========================================
    ПАУЗА
-================================ */
+========================================= */
 
 function wait(ms) {
-    return new Promise(resolve =>
-        setTimeout(resolve, ms)
+
+    return new Promise(
+        resolve =>
+            setTimeout(
+                resolve,
+                ms
+            )
     );
+
 }
 
 
-/* ================================
-   ТЕКУЩИЙ КОМПЛЕКТ
-================================ */
+/* =========================================
+   КОМПЛЕКТ ДЛЯ РАУНДА
+========================================= */
 
 function getCurrentHatSet() {
 
     const setIndex =
-        Math.floor(currentRound / 2);
+        Math.floor(
+            currentRound / 2
+        );
 
-    return hatSets[setIndex];
+
+    return hatSets[
+        setIndex
+    ];
+
 }
 
 
-/* ================================
-   РАНДОМНАЯ ШАПКА ДЛЯ МЫШКИ
-================================ */
+/* =========================================
+   РАНДОМНАЯ ПОЗИЦИЯ МЫШКИ
+========================================= */
 
 function chooseRandomMouseHat() {
-
-    /*
-       Каждый раунд выбирается
-       совершенно независимо.
-
-       0 = левая
-       1 = средняя
-       2 = правая
-
-       Повторения разрешены.
-    */
 
     return Math.floor(
         Math.random() * 3
     );
+
 }
 
 
-/* ================================
+/* =========================================
    СОЗДАЁМ ШАПКИ
-================================ */
+========================================= */
 
 function createHats() {
 
-    hatsArea.innerHTML = "";
+    hatsArea.innerHTML =
+        "";
+
 
     const currentSet =
         getCurrentHatSet();
@@ -703,29 +865,40 @@ function createHats() {
         (imagePath, index) => {
 
             const slot =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
+
 
             slot.className =
                 `hat-slot position-${index}`;
+
 
             slot.dataset.id =
                 index;
 
 
-            /* мышка под шапкой */
+            /* мышка */
 
             const hiddenMouse =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
+
 
             hiddenMouse.className =
                 "hiddenMouse";
 
 
             const hiddenMouseImage =
-                document.createElement("img");
+                document.createElement(
+                    "img"
+                );
+
 
             hiddenMouseImage.src =
                 "mouse.png";
+
 
             hiddenMouseImage.draggable =
                 false;
@@ -739,20 +912,28 @@ function createHats() {
             /* шапка */
 
             const hat =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
+
 
             hat.className =
                 "hat";
 
 
             const hatImage =
-                document.createElement("img");
+                document.createElement(
+                    "img"
+                );
+
 
             hatImage.src =
                 imagePath;
 
+
             hatImage.className =
                 "hat-image";
+
 
             hatImage.draggable =
                 false;
@@ -767,13 +948,16 @@ function createHats() {
                 hiddenMouse
             );
 
+
             slot.appendChild(
                 hat
             );
 
+
             hatsArea.appendChild(
                 slot
             );
+
         }
     );
 
@@ -791,16 +975,19 @@ function createHats() {
 
             hat.addEventListener(
                 "click",
-                () => chooseHat(hat)
+                () =>
+                    chooseHat(hat)
             );
+
         }
     );
+
 }
 
 
-/* ================================
+/* =========================================
    МЫШКА НА ПОДУШКЕ
-================================ */
+========================================= */
 
 async function showMouseBeforeRound() {
 
@@ -810,13 +997,15 @@ async function showMouseBeforeRound() {
 
     mouse.style.left =
         (
-            gameRect.width * 0.14
+            gameRect.width *
+            0.14
         ) + "px";
 
 
     mouse.style.top =
         (
-            gameRect.height * 0.61
+            gameRect.height *
+            0.61
         ) + "px";
 
 
@@ -826,19 +1015,26 @@ async function showMouseBeforeRound() {
     );
 
 
-    await wait(400);
+    await wait(
+        400
+    );
+
 
     mouse.classList.remove(
         "appear"
     );
 
-    await wait(1100);
+
+    await wait(
+        1100
+    );
+
 }
 
 
-/* ================================
+/* =========================================
    ШТОРКА
-================================ */
+========================================= */
 
 async function closeCurtain() {
 
@@ -846,7 +1042,11 @@ async function closeCurtain() {
         "closed"
     );
 
-    await wait(760);
+
+    await wait(
+        760
+    );
+
 }
 
 
@@ -856,9 +1056,17 @@ async function openCurtain() {
         "closed"
     );
 
-    await wait(760);
+
+    await wait(
+        760
+    );
+
 }
 
+
+/* =========================================
+   ПРЯЧЕМ МЫШКУ
+========================================= */
 
 function hideMouseBehindCurtain() {
 
@@ -866,107 +1074,136 @@ function hideMouseBehindCurtain() {
         "visible",
         "appear"
     );
+
 }
 
 
-/* ================================
-   НАЧАЛО РАУНДА
-================================ */
+/* =========================================
+   СТАРТ РАУНДА
+========================================= */
 
 async function startRound() {
 
-    canChoose = false;
-    roundSolved = false;
+    canChoose =
+        false;
 
 
-    questionText.classList.remove(
-        "show"
-    );
+    roundSolved =
+        false;
 
 
-    nextButton.classList.remove(
-        "show"
-    );
+    questionText
+        .classList
+        .remove(
+            "show"
+        );
+
+
+    nextButton
+        .classList
+        .remove(
+            "show"
+        );
 
 
     createHats();
 
 
-    /*
-       ВОТ ЗДЕСЬ КАЖДЫЙ РАУНД
-       ВЫБИРАЕТСЯ СЛУЧАЙНАЯ ШАПКА.
-    */
-
     mouseHatID =
         chooseRandomMouseHat();
 
 
-    await wait(500);
+    await wait(
+        500
+    );
 
 
-    /* мышка появилась */
+    /* Мышка появляется */
 
     await showMouseBeforeRound();
 
 
-    /* закрываем шторку */
+    /* Закрываем экран */
 
     await closeCurtain();
 
 
-    /* мышка исчезает за шторкой */
+    /* Мышка исчезает */
 
     hideMouseBehindCurtain();
 
 
-    await wait(300);
+    await wait(
+        300
+    );
 
 
-    /* открываем */
+    /* Открываем */
 
     await openCurtain();
 
 
-    /* вопрос */
+    /* Показываем вопрос */
 
-    questionText.classList.add(
-        "show"
+    questionText
+        .classList
+        .add(
+            "show"
+        );
+
+
+    await wait(
+        900
     );
 
 
-    await wait(900);
+    questionText
+        .classList
+        .remove(
+            "show"
+        );
 
 
-    questionText.classList.remove(
-        "show"
+    await wait(
+        150
     );
 
 
-    await wait(150);
+    canChoose =
+        true;
 
-
-    canChoose = true;
 }
 
 
-/* ================================
+/* =========================================
    ВЫБОР ШАПКИ
-================================ */
+========================================= */
 
 async function chooseHat(hat) {
 
-    if (!canChoose) return;
-    if (roundSolved) return;
+    if (!canChoose) {
+        return;
+    }
+
+
+    if (roundSolved) {
+        return;
+    }
+
 
     if (
-        hat.classList.contains("open")
+        hat.classList.contains(
+            "open"
+        )
     ) {
         return;
     }
 
 
     const hatID =
-        Number(hat.dataset.id);
+        Number(
+            hat.dataset.id
+        );
 
 
     hat.classList.add(
@@ -974,14 +1211,21 @@ async function chooseHat(hat) {
     );
 
 
-    /* ПРАВИЛЬНО */
+    /* =================================
+       ПРАВИЛЬНО
+    ================================= */
 
     if (
-        hatID === mouseHatID
+        hatID ===
+        mouseHatID
     ) {
 
-        roundSolved = true;
-        canChoose = false;
+        roundSolved =
+            true;
+
+
+        canChoose =
+            false;
 
 
         hat.classList.add(
@@ -989,53 +1233,59 @@ async function chooseHat(hat) {
         );
 
 
-        await wait(700);
+        await wait(
+            700
+        );
 
 
-        /*
-           ЕСЛИ ЭТО 10-Й РАУНД
-           — СРАЗУ ФИНАЛ.
-        */
+        /* Последний раунд */
 
         if (
             currentRound ===
             TOTAL_ROUNDS - 1
         ) {
 
-            finishScreen.classList.add(
-                "show"
-            );
+            finishScreen
+                .classList
+                .add(
+                    "show"
+                );
+
 
             return;
         }
 
 
-        /*
-           В остальных раундах
-           появляется кнопка.
-        */
+        nextButton
+            .classList
+            .add(
+                "show"
+            );
 
-        nextButton.classList.add(
-            "show"
-        );
 
         return;
     }
 
 
-    /* НЕПРАВИЛЬНО */
+    /* =================================
+       НЕПРАВИЛЬНО
+    ================================= */
 
-    await wait(900);
+    await wait(
+        900
+    );
+
 
     hat.classList.remove(
         "open"
     );
+
 }
 
 
-/* ================================
+/* =========================================
    ИГРАТЬ ДАЛЬШЕ
-================================ */
+========================================= */
 
 nextButton.addEventListener(
     "click",
@@ -1050,20 +1300,22 @@ nextButton.addEventListener(
 
 
         if (
-            currentRound >= TOTAL_ROUNDS
+            currentRound >=
+            TOTAL_ROUNDS
         ) {
             return;
         }
 
 
         await startRound();
+
     }
 );
 
 
-/* ================================
+/* =========================================
    СТАРТ
-================================ */
+========================================= */
 
 startRound();
 
