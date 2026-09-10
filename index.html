@@ -45,30 +45,6 @@ body {
 }
 
 /* ================================
-   СЧЁТЧИК
-================================ */
-
-#roundCounter {
-    position: absolute;
-    top: 22px;
-    left: 25px;
-
-    z-index: 100;
-
-    padding: 9px 17px;
-    border-radius: 22px;
-
-    background: rgba(255,255,255,0.9);
-
-    color: #674629;
-
-    font-size: 21px;
-    font-weight: 700;
-
-    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-}
-
-/* ================================
    ВОПРОС
 ================================ */
 
@@ -249,9 +225,6 @@ body {
     bottom: 0;
 
     cursor: pointer;
-
-    transition:
-        left 0.52s cubic-bezier(.4,0,.2,1);
 }
 
 .hat {
@@ -317,7 +290,7 @@ body {
 }
 
 /* ================================
-   ПОЗИЦИИ
+   ТРИ ФИКСИРОВАННЫЕ ПОЗИЦИИ
 ================================ */
 
 .position-0 {
@@ -426,26 +399,20 @@ body {
 
 #curtainLeft {
     left: 0;
-
-    transform:
-        translateX(-101%);
+    transform: translateX(-101%);
 }
 
 #curtainRight {
     right: 0;
-
-    transform:
-        translateX(101%);
+    transform: translateX(101%);
 }
 
 #curtain.closed #curtainLeft {
-    transform:
-        translateX(0);
+    transform: translateX(0);
 }
 
 #curtain.closed #curtainRight {
-    transform:
-        translateX(0);
+    transform: translateX(0);
 }
 
 /* ================================
@@ -539,10 +506,6 @@ body {
 
 <div id="game">
 
-    <div id="roundCounter">
-        Раунд 1 / 10
-    </div>
-
     <div id="questionText">
         Где спряталась мышка?
     </div>
@@ -597,9 +560,7 @@ body {
 
     <div id="finishScreen">
 
-        <h1>
-            🎉 Отлично!
-        </h1>
+        <h1>🎉 Отлично!</h1>
 
         <p>
             Ты нашёл мышку!
@@ -609,7 +570,6 @@ body {
 
 </div>
 
-
 <script>
 
 /* ================================
@@ -618,16 +578,11 @@ body {
 
 const hatSets = [
 
-    /* 1–2: КРАСНЫЕ */
-
     [
         "hats/hat-red-chess-v2.png",
         "hats/hat-1-car.png",
         "hats/hat-red-shower-v3.png"
     ],
-
-
-    /* 3–4: ЗЕЛЁНЫЕ */
 
     [
         "hats/cherry.png",
@@ -635,26 +590,17 @@ const hatSets = [
         "hats/bear.png"
     ],
 
-
-    /* 5–6: СИНИЕ */
-
     [
         "hats/frog.png",
         "hats/tire.png",
         "hats/bag.png"
     ],
 
-
-    /* 7–8: ЖЁЛТЫЕ */
-
     [
         "hats/coat.png",
         "hats/rooster.png",
         "hats/chocolate.png"
     ],
-
-
-    /* 9–10: БЕЛЫЕ */
 
     [
         "hats/cone.png",
@@ -664,28 +610,27 @@ const hatSets = [
 
 ];
 
-
 const TOTAL_ROUNDS = 10;
 
 
-/*
-   Под какой шапкой находится мышка.
+/* ================================
+   ГДЕ ПРЯЧЕТСЯ МЫШКА
 
-   В каждой паре специально
-   выбираем разные картинки.
-*/
+   0 = левая шапка
+   1 = центральная
+   2 = правая
+
+   Сделала последовательность
+   специально максимально разной.
+================================ */
 
 const mousePositions = [
 
-    0, 1,     // 1–2
-
-    0, 2,     // 3–4
-
-    1, 2,     // 5–6
-
-    0, 1,     // 7–8
-
-    2, 0      // 9–10
+    0, 2,
+    1, 0,
+    2, 1,
+    0, 2,
+    1, 0
 
 ];
 
@@ -705,9 +650,6 @@ const mouse =
 
 const nextButton =
     document.getElementById("nextButton");
-
-const roundCounter =
-    document.getElementById("roundCounter");
 
 const questionText =
     document.getElementById("questionText");
@@ -731,8 +673,6 @@ let canChoose = false;
 
 let roundSolved = false;
 
-let positionMap = [0,1,2];
-
 let hats = [];
 
 
@@ -751,20 +691,10 @@ function wait(ms) {
 
 
 /* ================================
-   КАКОЙ КОМПЛЕКТ НУЖЕН
+   КОМПЛЕКТ ТЕКУЩЕГО РАУНДА
 ================================ */
 
 function getCurrentHatSet() {
-
-    /*
-       Раунды:
-
-       0,1 -> комплект 0
-       2,3 -> комплект 1
-       4,5 -> комплект 2
-       6,7 -> комплект 3
-       8,9 -> комплект 4
-    */
 
     const setIndex =
         Math.floor(currentRound / 2);
@@ -775,7 +705,7 @@ function getCurrentHatSet() {
 
 
 /* ================================
-   СОЗДАНИЕ ШАПОК
+   СОЗДАЁМ ШАПКИ
 ================================ */
 
 function createHats() {
@@ -793,20 +723,17 @@ function createHats() {
             const slot =
                 document.createElement("div");
 
-
             slot.className =
                 `hat-slot position-${index}`;
-
 
             slot.dataset.id =
                 index;
 
 
-            /* МЫШКА ПОД ШАПКОЙ */
+            /* Мышка под шапкой */
 
             const hiddenMouse =
                 document.createElement("div");
-
 
             hiddenMouse.className =
                 "hiddenMouse";
@@ -815,10 +742,8 @@ function createHats() {
             const hiddenMouseImage =
                 document.createElement("img");
 
-
             hiddenMouseImage.src =
                 "mouse.png";
-
 
             hiddenMouseImage.draggable =
                 false;
@@ -829,11 +754,10 @@ function createHats() {
             );
 
 
-            /* ШАПКА */
+            /* Шапка */
 
             const hat =
                 document.createElement("div");
-
 
             hat.className =
                 "hat";
@@ -842,14 +766,11 @@ function createHats() {
             const hatImage =
                 document.createElement("img");
 
-
             hatImage.src =
                 imagePath;
 
-
             hatImage.className =
                 "hat-image";
-
 
             hatImage.draggable =
                 false;
@@ -863,7 +784,6 @@ function createHats() {
             slot.appendChild(
                 hiddenMouse
             );
-
 
             slot.appendChild(
                 hat
@@ -896,125 +816,6 @@ function createHats() {
 
         }
     );
-
-}
-
-
-/* ================================
-   ПОЗИЦИИ
-================================ */
-
-function updateHatPositions() {
-
-    hats.forEach(
-        (hat, hatID) => {
-
-            hat.classList.remove(
-                "position-0",
-                "position-1",
-                "position-2"
-            );
-
-
-            hat.classList.add(
-                "position-" +
-                positionMap[hatID]
-            );
-
-        }
-    );
-
-}
-
-
-/* ================================
-   SHUFFLE
-================================ */
-
-function shuffleArray(array) {
-
-    const copy =
-        [...array];
-
-
-    for (
-        let i = copy.length - 1;
-        i > 0;
-        i--
-    ) {
-
-        const j =
-            Math.floor(
-                Math.random() *
-                (i + 1)
-            );
-
-
-        [
-            copy[i],
-            copy[j]
-        ] =
-        [
-            copy[j],
-            copy[i]
-        ];
-
-    }
-
-
-    return copy;
-
-}
-
-
-/* ================================
-   ПЕРЕМЕШИВАНИЕ
-================================ */
-
-async function shuffleHats() {
-
-    const shuffleSteps = 8;
-
-
-    for (
-        let i = 0;
-        i < shuffleSteps;
-        i++
-    ) {
-
-        let newPositions;
-
-
-        do {
-
-            newPositions =
-                shuffleArray(
-                    [0,1,2]
-                );
-
-        }
-
-        while (
-
-            newPositions.every(
-                (value,index) =>
-                    value ===
-                    positionMap[index]
-            )
-
-        );
-
-
-        positionMap =
-            newPositions;
-
-
-        updateHatPositions();
-
-
-        await wait(520);
-
-    }
 
 }
 
@@ -1070,7 +871,6 @@ async function closeCurtain() {
         "closed"
     );
 
-
     await wait(760);
 
 }
@@ -1081,7 +881,6 @@ async function openCurtain() {
     curtain.classList.remove(
         "closed"
     );
-
 
     await wait(760);
 
@@ -1119,24 +918,19 @@ async function startRound() {
         .remove("show");
 
 
-    positionMap =
-        [0,1,2];
-
-
     /*
-       Здесь создаётся правильный
-       комплект для текущего раунда.
+       Новый комплект шапок.
     */
 
     createHats();
 
 
-    updateHatPositions();
+    /*
+       Вот здесь теперь выбирается
+       конкретная позиция мышки.
 
-
-    roundCounter.textContent =
-        `Раунд ${currentRound + 1} / ${TOTAL_ROUNDS}`;
-
+       Никакого перемешивания больше нет.
+    */
 
     mouseHatID =
         mousePositions[currentRound];
@@ -1145,17 +939,20 @@ async function startRound() {
     await wait(500);
 
 
-    /* Мышка появляется */
+    /* 1. Мышка появилась */
 
     await showMouseBeforeRound();
 
 
-    /* Шторка закрывается */
+    /* 2. Шторка закрылась */
 
     await closeCurtain();
 
 
-    /* Мышка исчезает */
+    /*
+       3. За закрытой шторкой
+       мышка исчезает.
+    */
 
     hideMouseBehindCurtain();
 
@@ -1163,38 +960,45 @@ async function startRound() {
     await wait(300);
 
 
-    /* Шторка открывается */
+    /* 4. Открываем */
 
     await openCurtain();
 
 
-    /* ВОПРОС */
+    /*
+       5. Показываем вопрос.
+    */
 
     questionText
         .classList
         .add("show");
 
 
-    await wait(350);
+    /*
+       Теперь шапки НЕ двигаются.
+
+       Просто даём ребёнку небольшой
+       момент посмотреть на них.
+    */
+
+    await wait(900);
 
 
-    /* ПЕРЕМЕШИВАЕМ */
-
-    await shuffleHats();
-
-
-    await wait(350);
-
-
-    /* УБИРАЕМ ВОПРОС */
+    /*
+       Вопрос исчезает.
+    */
 
     questionText
         .classList
         .remove("show");
 
 
-    await wait(250);
+    await wait(150);
 
+
+    /*
+       Можно выбирать.
+    */
 
     canChoose = true;
 
@@ -1202,7 +1006,7 @@ async function startRound() {
 
 
 /* ================================
-   ВЫБОР ШАПКИ
+   ВЫБОР
 ================================ */
 
 async function chooseHat(hat) {
@@ -1211,16 +1015,12 @@ async function chooseHat(hat) {
         return;
     }
 
-
     if (roundSolved) {
         return;
     }
 
-
     if (
-        hat.classList.contains(
-            "open"
-        )
+        hat.classList.contains("open")
     ) {
         return;
     }
@@ -1232,16 +1032,19 @@ async function chooseHat(hat) {
         );
 
 
+    /*
+       Поднимаем шапку.
+    */
+
     hat.classList.add(
         "open"
     );
 
 
-    /* ПРАВИЛЬНАЯ */
+    /* ПРАВИЛЬНО */
 
     if (
-        hatID ===
-        mouseHatID
+        hatID === mouseHatID
     ) {
 
         roundSolved = true;
@@ -1264,7 +1067,7 @@ async function chooseHat(hat) {
     }
 
 
-    /* НЕПРАВИЛЬНАЯ */
+    /* НЕПРАВИЛЬНО */
 
     else {
 
@@ -1281,7 +1084,7 @@ async function chooseHat(hat) {
 
 
 /* ================================
-   СЛЕДУЮЩИЙ РАУНД
+   ИГРАТЬ ДАЛЬШЕ
 ================================ */
 
 nextButton.addEventListener(
